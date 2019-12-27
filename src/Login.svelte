@@ -1,9 +1,11 @@
 ﻿<script>
 	import sendRequest from './login';
-	import { credentials } from './stores.js';
+	import { credentials, reports } from './stores.js';
 
 	async function click() {
-		await sendRequest();
+		const data = await sendRequest();
+		reports.set(data);
+		credentials.setCredentials();
 	}
 
 	function setCredentials() {

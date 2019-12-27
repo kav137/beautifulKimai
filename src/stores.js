@@ -9,5 +9,7 @@ function createCredentialsStore() {
     reset: () => set(null)
   };
 }
+const reports = writable([]);
+const credentials = createCredentialsStore();
 
-export const credentials = createCredentialsStore();
+export {reports, credentials};

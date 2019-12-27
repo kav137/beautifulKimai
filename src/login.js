@@ -1,6 +1,6 @@
 ﻿const baseUrl = 'testUrl';
 
-const sendRequest = async (path = 'activities') => {
+const sendRequest = async (path = 'timesheets') => {
 	const fullPath = baseUrl + path;
 	const reuqestOptions = {
 		method: 'GET',

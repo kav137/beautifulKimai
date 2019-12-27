@@ -1,4 +1,6 @@
 <script>
+  import { reports } from './stores.js';
+
   let people = [
     { first: "Hans", last: "Emil" },
     { first: "Max", last: "Mustermann" },
@@ -92,3 +94,12 @@
   </button>
   <button on:click={remove} disabled={!selected}>delete</button>
 </div>
+
+
+<hr>
+<h2>reports</h2>
+{#each $reports as report, i}
+  <div>
+    <span>{report.id}</span> -  <span>{report.description}</span>
+  </div>
+{/each}

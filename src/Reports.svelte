@@ -1,6 +1,6 @@
 <script>
   import reports from "./store/reportsStore.js";
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let people = [
     { first: "Hans", last: "Emil" },
@@ -51,8 +51,8 @@
   }
 
   onMount(async () => {
-		reports.updateReportList();
-	});
+    reports.updateReportList();
+  });
 </script>
 
 <style>
@@ -100,11 +100,12 @@
   <button on:click={remove} disabled={!selected}>delete</button>
 </div>
 
-
-<hr>
+<hr />
 <h2>reports</h2>
 {#each $reports as report, i}
   <div>
-    <span>{report.id}</span> -  <span>{report.description}</span>
+    <span>{report.id}</span>
+    -
+    <span>{report.description}</span>
   </div>
 {/each}

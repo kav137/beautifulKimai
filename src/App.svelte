@@ -1,7 +1,7 @@
 <script>
 	import Login from "./Login.svelte";
 	import Reports from "./Reports.svelte";
-	import { credentials } from "./stores.js";
+	import credentials from "./store/credentialsStore.js";
 </script>
 
 <main>

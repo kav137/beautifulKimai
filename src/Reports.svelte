@@ -1,5 +1,5 @@
 <script>
-  import { reports } from './stores.js';
+  import reports from "./store/reportsStore.js";
 
   let people = [
     { first: "Hans", last: "Emil" },

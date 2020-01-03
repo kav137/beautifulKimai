@@ -1,5 +1,5 @@
 ﻿<script>
-	import { credentials, reports } from './stores.js';
+	import credentials from "./store/credentialsStore.js";
 	import { onMount } from 'svelte';
 
 	const checkLogin = async (login, token, baseUrl) => {

@@ -5,7 +5,6 @@
 </script>
 
 <main>
-	<h1>The credentials is {$credentials}</h1>
 	{#if $credentials === null}
 		<Login />
 	{:else}

@@ -1,5 +1,6 @@
 <script>
   import reports from "./store/reportsStore.js";
+  import { onMount } from 'svelte';
 
   let people = [
     { first: "Hans", last: "Emil" },
@@ -48,6 +49,10 @@
     first = person ? person.first : "";
     last = person ? person.last : "";
   }
+
+  onMount(async () => {
+		reports.updateReportList();
+	});
 </script>
 
 <style>

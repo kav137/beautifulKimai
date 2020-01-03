@@ -5,12 +5,17 @@ function createCredentialsStore() {
 
   return {
     subscribe,
-    setCredentials: (newCredentials) => update(() => {
-      if (!newCredentials.login || !newCredentials.token || !newCredentials.url) {
-        return null;
-      }
-      return newCredentials;
-    }),
+    setCredentials: newCredentials =>
+      update(() => {
+        if (
+          !newCredentials.login ||
+          !newCredentials.token ||
+          !newCredentials.url
+        ) {
+          return null;
+        }
+        return newCredentials;
+      }),
     reset: () => set(null)
   };
 }

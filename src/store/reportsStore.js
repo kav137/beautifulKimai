@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import credentials from "./credentialsStore";
 
 const getAllListOfReports = async (baseUrl, headers) => {
-  const fullPath = baseUrl + "timesheets";
+  const fullPath = baseUrl + "timesheets/recent?size=10";
   const reuqestOptions = {
     method: "GET",
     headers: headers

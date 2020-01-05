@@ -20,6 +20,9 @@ function createReportsStore() {
       const url = credentials.getAPIurl();
       const headers = credentials.getCurrentHeaders();
       const reports = await getAllListOfReports(url, headers);
+      console.log("reports", reports);
+      console.log("reports[0]", reports[0]);
+
       update(() => {
         return reports;
       });

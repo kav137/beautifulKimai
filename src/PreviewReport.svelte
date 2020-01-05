@@ -1,5 +1,6 @@
 <script>
   export let report;
+  export let isSelectedReport = false;
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
@@ -13,8 +14,9 @@
 
 <style>
   article {
-    box-shadow: 1px 1px 3px #646464;
-    border-radius: 3px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     padding: 5px 15px;
     margin: 10px 0;
     display: flex;
@@ -22,8 +24,9 @@
     justify-content: space-between;
     cursor: pointer;
   }
+  .article_selected,
   article:hover {
-    box-shadow: 1px 1px 10px #646464;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
   }
   .description {
     flex-basis: 70%;
@@ -37,7 +40,9 @@
   }
 </style>
 
-<article on:click={selectReport}>
+<article
+  on:click={selectReport}
+  class={isSelectedReport ? `article_selected` : ''}>
   <p class="description">{report.description}</p>
   <p class="project">{report.project.name}</p>
   <p class="activity">{report.activity.name}</p>

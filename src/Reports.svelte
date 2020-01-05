@@ -74,7 +74,10 @@
 <hr />
 <h1>Reports</h1>
 {#each $reports as report, i}
-  <PreviewReport {report} on:select={selectReport} />
+  <PreviewReport
+    {report}
+    isSelectedReport={selectedReport && selectedReport.id === report.id}
+    on:select={selectReport} />
 {/each}
 
 <input placeholder="filter prefix" bind:value={prefix} />

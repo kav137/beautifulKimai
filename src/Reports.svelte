@@ -1,5 +1,6 @@
 <script>
   import reports from "./store/reportsStore.js";
+  import PreviewReport from "./PreviewReport.svelte";
   import { onMount } from "svelte";
 
   let people = [
@@ -21,6 +22,8 @@
     : people;
 
   $: selected = filteredPeople[i];
+
+  $: selectedReport = null;
 
   $: reset_inputs(selected);
 
@@ -50,32 +53,29 @@
     last = person ? person.last : "";
   }
 
+  function selectReport(event) {
+    const selectedId = event.detail.id;
+    selectedReport = $reports.find(report => report.id == selectedId);
+  }
+
   onMount(async () => {
     reports.updateReportList();
   });
 </script>
 
-<style>
-  * {
-    font-family: inherit;
-    font-size: inherit;
-  }
+<div>
+  {#if selectedReport !== null}
+    <hr />
+    <h1>Selected report</h1>
+    <PreviewReport report={selectedReport} />
+  {/if}
+</div>
 
-  input {
-    display: block;
-    margin: 0 0 0.5em 0;
-  }
-
-  select {
-    float: left;
-    margin: 0 1em 1em 0;
-    width: 14em;
-  }
-
-  .buttons {
-    clear: both;
-  }
-</style>
+<hr />
+<h1>Reports</h1>
+{#each $reports as report, i}
+  <PreviewReport {report} on:select={selectReport} />
+{/each}
 
 <input placeholder="filter prefix" bind:value={prefix} />
 
@@ -99,13 +99,3 @@
   </button>
   <button on:click={remove} disabled={!selected}>delete</button>
 </div>
-
-<hr />
-<h2>reports</h2>
-{#each $reports as report, i}
-  <div>
-    <span>{report.id}</span>
-    -
-    <span>{report.description}</span>
-  </div>
-{/each}

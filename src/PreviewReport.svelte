@@ -1,5 +1,6 @@
 <script>
   export let report;
+  import converter from "./converters";
   export let isSelectedReport = false;
   import { createEventDispatcher } from "svelte";
 
@@ -29,11 +30,12 @@
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
   }
   .description {
-    flex-basis: 70%;
+    flex-basis: 50%;
   }
   .project,
+  .date,
   .activity {
-    flex-basis: 10%;
+    flex-basis: 11%;
   }
   p {
     margin: 0;
@@ -46,5 +48,8 @@
   <p class="description">{report.description}</p>
   <p class="project">{report.project.name}</p>
   <p class="activity">{report.activity.name}</p>
+  <p class="date">
+    <i>{converter.date.toView(report.end)}</i>
+  </p>
   <h4 class="duration">{report.duration / 60 / 60}h</h4>
 </article>

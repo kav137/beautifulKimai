@@ -13,10 +13,10 @@
   }
 
   onMount(async () => {
-    reports.updateReportList();
+    await reports.updateReportList();
     setTimeout(() => {
       selectedReport = $reports.find(report => report.id);
-    }, 700);
+    }, 200);
   });
 </script>
 

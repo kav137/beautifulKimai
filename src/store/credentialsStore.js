@@ -1,35 +1,39 @@
 import { writable } from "svelte/store";
-
-let currentHeaders = {};
-let baseAPIurl = null;
+import kimaiApi from "../kimaiApi";
+const LOCAL_STORAGE_ITEM_NAME = "credentialsData";
 
 function createCredentialsStore() {
   const { subscribe, set, update } = writable(null);
   return {
     subscribe,
-    getCurrentHeaders() {
-      return currentHeaders;
+    checkCredentials: async (login, token, urlAPI) => {
+      const isCorrectLogin = await kimaiApi.checkLogin(login, token, urlAPI);
+
+      if (isCorrectLogin) {
+        update(() => {
+          return {
+            urlAPI,
+            headers: {
+              "X-AUTH-USER": login,
+              "X-AUTH-TOKEN": token
+            }
+          };
+        });
+        localStorage.setItem(
+          LOCAL_STORAGE_ITEM_NAME,
+          JSON.stringify({ login, token, urlAPI })
+        );
+      } else {
+        set(null);
+      }
+      return isCorrectLogin;
     },
-    getAPIurl() {
-      return baseAPIurl;
-    },
-    setCredentials: newCredentials =>
-      update(() => {
-        if (
-          !newCredentials.login ||
-          !newCredentials.token ||
-          !newCredentials.url
-        ) {
-          return null;
-        }
-        baseAPIurl = newCredentials.url;
-        currentHeaders = {
-          "X-AUTH-USER": newCredentials.login,
-          "X-AUTH-TOKEN": newCredentials.token
-        };
-        return newCredentials;
-      }),
-    reset: () => set(null)
+    checkCachedCredentials: async function() {
+      const { login, token, urlAPI } = JSON.parse(
+        localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || "{}"
+      );
+      return this.checkCredentials(login, token, urlAPI);
+    }
   };
 }
 

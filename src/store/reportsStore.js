@@ -1,23 +1,13 @@
 import { writable } from "svelte/store";
 import credentials from "./credentialsStore";
+import kimaiApi from "../kimaiApi";
 
-const setRequest = async (baseUrl, headers, path) => {
-  const fullPath = baseUrl + path;
-  const reuqestOptions = {
-    method: "GET",
-    headers: headers
-  };
-  const result = await fetch(fullPath, reuqestOptions);
-  const resultJson = await result.json();
-  return resultJson;
-};
-
-let staticVariables = null;
-const createStaticVariables = async (url, headers) => {
+let staticData = null;
+const initStaticData = async (url, headers) => {
   const staticRequests = {
-    projects: setRequest(url, headers, "projects"),
-    customers: setRequest(url, headers, "customers"),
-    activities: setRequest(url, headers, "activities")
+    projects: kimaiApi.getProjects(url, headers),
+    customers: kimaiApi.getCustomers(url, headers),
+    activities: kimaiApi.getActivities(url, headers)
   };
   return {
     projects: await staticRequests.projects,
@@ -28,45 +18,41 @@ const createStaticVariables = async (url, headers) => {
 
 function createReportsStore() {
   const { subscribe, set, update } = writable([]);
+  let urlAPI = "";
+  let headers = {};
+
+  credentials.subscribe(newCredentials => {
+    if (!newCredentials) {
+      return;
+    }
+    urlAPI = newCredentials.urlAPI;
+    headers = newCredentials.headers;
+  });
+
   return {
     subscribe,
-    getStaticDate: () => staticVariables,
-    saveNewReport: async reportObject => {
-      const url = credentials.getAPIurl();
-      const headers = credentials.getCurrentHeaders();
-      const fullPath = url + "timesheets";
-      const reuqestOptions = {
-        method: "POST",
-        headers: {
-          ...headers,
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(reportObject)
-      };
-      const result = await fetch(fullPath, reuqestOptions);
-      const resultJson = await result.json();
-      console.log("result of saving", resultJson);
-
-      return resultJson;
+    getStaticDate: async function() {
+      staticData = staticData || (await initStaticData(urlAPI, headers));
+      return staticData;
     },
-    updateReportList: async () => {
-      const url = credentials.getAPIurl();
-      const headers = credentials.getCurrentHeaders();
+    saveNewReport: async function(reportObject) {
+      const result = await kimaiApi.createReport(urlAPI, headers, reportObject);
+      console.log("result of saving", result);
 
-      const reportReq = setRequest(url, headers, "timesheets?full=true"); ////recent?size=10
-      staticVariables =
-        staticVariables || (await createStaticVariables(url, headers));
+      return this.getReportList();
+    },
 
-      top.staticVariables = staticVariables;
-
-      const reports = await reportReq;
-      top.reports = reports;
+    getReportList: async function() {
+      window.reports = await kimaiApi.getRequest(
+        urlAPI,
+        headers,
+        "timesheets?full=true"
+      );
 
       update(() => {
-        return reports;
+        return window.reports;
       });
-    },
-    reset: () => set(null)
+    }
   };
 }
 

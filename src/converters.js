@@ -10,7 +10,11 @@ export default {
   },
   duration: {
     toView(originDateString) {
-      return originDateString / 60 / 60;
+      const time = parseInt(originDateString, 10);
+      const hours = Math.floor(time / 60 / 60);
+      const minutes = (time - hours * 60 * 60) / 60;
+
+      return `${hours}:${minutes}`;
     },
     toSrc(userViewString) {
       return userViewString * 60 * 60;

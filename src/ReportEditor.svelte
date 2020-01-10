@@ -45,7 +45,11 @@
 
       viewReportData.description = report.description;
       viewReportData.date = converter.date.toView(report.begin);
-      viewReportData.duration = converter.duration.toView(report.duration);
+
+      const viewTime = converter.duration.toView(report.duration);
+      viewReportData.hours = viewTime.split(":")[0];
+      viewReportData.minutes = viewTime.split(":")[1];
+
       viewReportData.projectId = report.project.id;
       viewReportData.activityId = report.activity.id;
       viewReportData.customerId = report.project.customer.id;
@@ -62,6 +66,13 @@
   span {
     min-width: 100px;
     display: inline-block;
+  }
+  .time {
+    width: 40px;
+  }
+
+  .time + i {
+    padding-right: 10px;
   }
 </style>
 
@@ -82,8 +93,19 @@
     </label>
 
     <label>
-      <span>Duration:</span>
-      <input bind:value={viewReportData.duration} type="text" name="duration" />
+      <span>Time:</span>
+      <input
+        class="time"
+        bind:value={viewReportData.hours}
+        type="text"
+        name="duration" />
+      <i>h</i>
+      <input
+        class="time"
+        bind:value={viewReportData.minutes}
+        type="text"
+        name="duration" />
+      <i>m</i>
     </label>
 
     <label>

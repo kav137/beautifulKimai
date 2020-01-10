@@ -11,7 +11,10 @@
   const covertReportToSend = viewObject => {
     const startDateStr = converter.date.toSrc(viewObject.date);
     const startDate = new Date(startDateStr);
-    const duration = converter.duration.toSrc(viewObject.duration);
+    const duration = converter.duration.toSrc(
+      viewObject.hours,
+      viewObject.minutes
+    );
     const endData = new Date(startDate.getTime() + duration * 1000);
     const endDateStr = converter.date.toSrc(endData.toString());
     return Object.assign(

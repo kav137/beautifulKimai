@@ -51,5 +51,5 @@
   <p class="date">
     <i>{converter.date.toView(report.end)}</i>
   </p>
-  <h4 class="duration">{report.duration / 60 / 60}h</h4>
+  <h4 class="duration">{converter.duration.toView(report.duration)}</h4>
 </article>

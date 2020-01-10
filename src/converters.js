@@ -16,8 +16,10 @@ export default {
 
       return `${hours}:${minutes}`;
     },
-    toSrc(userViewString) {
-      return userViewString * 60 * 60;
+    toSrc(hours, minutes) {
+      const hoursTime = parseInt(hours, 10) * 60 * 60;
+      const minutesTime = parseInt(minutes, 10) * 60;
+      return hoursTime + minutesTime;
     }
   }
 };

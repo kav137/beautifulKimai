@@ -17,20 +17,24 @@
   article {
     border: 1px solid #aaa;
     border-radius: 2px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 5px 15px;
-    margin: 10px 0;
+    padding: 10px 15px;
+    margin: 5px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    font-size: 14px;
   }
-  .article_selected,
+  .article_selected {
+    background-color: #444;
+    color: white;
+  }
+
   article:hover {
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #000;
   }
   .description {
-    flex-basis: 50%;
+    flex-basis: 70%;
   }
   .project,
   .date,
@@ -48,8 +52,8 @@
   <p class="description">{report.description}</p>
   <p class="project">{report.project.name}</p>
   <p class="activity">{report.activity.name}</p>
-  <p class="date">
+  <!--p class="date">
     <i>{converter.date.toView(report.end)}</i>
-  </p>
-  <h4 class="duration">{converter.duration.toView(report.duration)}</h4>
+  </p-->
+  <b class="duration">{converter.duration.toView(report.duration)}</b>
 </article>

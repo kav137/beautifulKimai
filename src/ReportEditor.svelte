@@ -77,11 +77,13 @@
   .time + i {
     padding-right: 10px;
   }
+  select {
+    width: 70%;
+  }
 </style>
 
 <div>
   <form>
-    <button>Save</button>
     <button on:click={saveAsToday}>Save for today</button>
 
     <label>

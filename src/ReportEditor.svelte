@@ -6,8 +6,8 @@
   import { beforeUpdate, afterUpdate, onMount } from "svelte";
   let staticData = null;
 
-  onMount(() => {
-    staticData = reports.getStaticDate();
+  onMount(async () => {
+    staticData = await reports.getStaticDate();
   });
   const covertReportToSend = viewObject => {
     const startDateStr = converter.date.toSrc(viewObject.date);

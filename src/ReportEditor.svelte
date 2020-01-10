@@ -8,12 +8,12 @@
 
   export let report;
   import { beforeUpdate, afterUpdate, onMount } from "svelte";
-  const covertReportToSend = viewObject => {
-    const startDateStr = converter.date.toSrc(viewObject.date);
+  const convertReportToSendFormat = reportObject => {
+    const startDateStr = converter.date.toSrc(reportObject.date);
     const startDate = new Date(startDateStr);
     const duration = converter.duration.toSrc(
-      viewObject.hours,
-      viewObject.minutes
+      reportObject.hours,
+      reportObject.minutes
     );
     const endData = new Date(startDate.getTime() + duration * 1000);
     const endDateStr = converter.date.toSrc(endData.toString());
@@ -22,9 +22,9 @@
       {
         begin: startDateStr,
         end: endDateStr,
-        project: viewObject.projectId,
-        activity: viewObject.activityId,
-        description: viewObject.description,
+        project: reportObject.projectId,
+        activity: reportObject.activityId,
+        description: reportObject.description,
         tags: ""
       }
     );
@@ -35,30 +35,30 @@
     const todayDayObj = new Date();
     const todayString = todayDayObj.toISOString().split("T")[0];
 
-    const todayObj = Object.assign({}, viewReportData, {
+    const todayObj = Object.assign({}, reportInEditMode, {
       date: converter.date.toSrc(todayString)
     });
-    const reportForSend = covertReportToSend(todayObj);
+    const reportForSend = convertReportToSendFormat(todayObj);
     await reports.saveNewReport(reportForSend);
   };
 
   beforeUpdate(() => {
-    if (report.id !== viewReportData.id) {
-      viewReportData.id = report.id;
+    if (report.id !== reportInEditMode.id) {
+      reportInEditMode.id = report.id;
 
-      viewReportData.description = report.description;
-      viewReportData.date = converter.date.toView(report.begin);
+      reportInEditMode.description = report.description;
+      reportInEditMode.date = converter.date.toView(report.begin);
 
       const viewTime = converter.duration.toView(report.duration);
-      viewReportData.hours = viewTime.split(":")[0];
-      viewReportData.minutes = viewTime.split(":")[1];
+      reportInEditMode.hours = viewTime.split(":")[0];
+      reportInEditMode.minutes = viewTime.split(":")[1];
 
-      viewReportData.projectId = report.project.id;
-      viewReportData.activityId = report.activity.id;
-      viewReportData.customerId = report.project.customer.id;
+      reportInEditMode.projectId = report.project.id;
+      reportInEditMode.activityId = report.activity.id;
+      reportInEditMode.customerId = report.project.customer.id;
     }
   });
-  const viewReportData = {};
+  const reportInEditMode = {};
 </script>
 
 <style>
@@ -87,25 +87,25 @@
     <label>
       <span>Description:</span>
       <br />
-      <textarea bind:value={viewReportData.description} name="description" />
+      <textarea bind:value={reportInEditMode.description} name="description" />
     </label>
 
     <label>
       <span>Date:</span>
-      <input bind:value={viewReportData.date} type="date" name="date" />
+      <input bind:value={reportInEditMode.date} type="date" name="date" />
     </label>
 
     <label>
       <span>Time:</span>
       <input
         class="time"
-        bind:value={viewReportData.hours}
+        bind:value={reportInEditMode.hours}
         type="text"
         name="duration" />
       <i>h</i>
       <input
         class="time"
-        bind:value={viewReportData.minutes}
+        bind:value={reportInEditMode.minutes}
         type="text"
         name="duration" />
       <i>m</i>
@@ -113,7 +113,7 @@
 
     <label>
       <span>Customer:</span>
-      <select bind:value={viewReportData.customerId}>
+      <select bind:value={reportInEditMode.customerId}>
         {#each $customers as customer}
           <option value={customer.id}>{customer.name}</option>
         {/each}
@@ -122,9 +122,9 @@
 
     <label>
       <span>Project:</span>
-      <select bind:value={viewReportData.projectId}>
+      <select bind:value={reportInEditMode.projectId}>
         {#each $projects as project}
-          {#if project.customer === viewReportData.customerId}
+          {#if project.customer === reportInEditMode.customerId}
             <option value={project.id}>{project.name}</option>
           {/if}
         {/each}
@@ -133,9 +133,9 @@
 
     <label>
       <span>Activity:</span>
-      <select bind:value={viewReportData.activityId}>
+      <select bind:value={reportInEditMode.activityId}>
         {#each $activities as activity}
-          {#if !activity.project || activity.project === viewReportData.projectId}
+          {#if !activity.project || activity.project === reportInEditMode.projectId}
             <option value={activity.id}>{activity.name}</option>
           {/if}
         {/each}

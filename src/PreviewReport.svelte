@@ -19,27 +19,23 @@
     border-radius: 2px;
     padding: 10px 15px;
     margin: 5px 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 65% 10% 1fr 50px;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    font-size: 14px;
   }
   .article_selected {
     background-color: #444;
+    border: 1px solid #444;
     color: white;
   }
 
   article:hover {
-    border: 1px solid #000;
+    border: 1px solid #444;
   }
-  .description {
-    flex-basis: 70%;
-  }
-  .project,
-  .date,
-  .activity {
-    flex-basis: 11%;
+  .duration {
+    text-align: center;
   }
   p {
     margin: 0;
@@ -55,5 +51,5 @@
   <!--p class="date">
     <i>{converter.date.toView(report.end)}</i>
   </p-->
-  <b class="duration">{converter.duration.toView(report.duration)}</b>
+  <p class="duration">{converter.duration.toView(report.duration)}</p>
 </article>

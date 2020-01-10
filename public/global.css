@@ -2,6 +2,7 @@ html,
 body {
   position: relative;
   width: 100%;
+  font-size: 14px;
   height: 100%;
 }
 
@@ -54,8 +55,9 @@ input[type="range"] {
 
 button {
   color: #333;
-  background-color: #f4f4f4;
+  border-color: #858585;
   outline: none;
+  padding: 9px 17px;
 }
 
 button:disabled {

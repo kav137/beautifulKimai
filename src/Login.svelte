@@ -17,42 +17,43 @@
       alert("Token or login is not correct");
     }
   }
-
+  let waitOfCheckingCacheCredentials = true;
   onMount(async () => {
-    credentials.checkCachedCredentials();
+    await credentials.checkCachedCredentials();
+    waitOfCheckingCacheCredentials = false;
   });
 </script>
 
-<h1>Kimai report system</h1>
-<form on:submit={loginFromForm}>
-  <label>
-    Url of root Kimai servise (looks like
-    <i>http://192.168.10.20:8001/api/</i>
-    ):
-    <br />
-    <input name="url" bind:value={urlAPI} type="text" required />
-  </label>
+{#if !waitOfCheckingCacheCredentials}
+  <h1>Kimai report system</h1>
+  <form on:submit={loginFromForm}>
+    <label>
+      Url of Kimai API servise (looks like
+      <b>http://192.168.10.20:8001/api/</b>
+      )
+      <br />
+      <input name="url" bind:value={urlAPI} type="text" required />
+    </label>
 
-  <label>
-    Login:
-    <br />
-    <input name="login" bind:value={login} type="text" required />
-  </label>
+    <label>
+      Login:
+      <br />
+      <input name="login" bind:value={login} type="text" required />
+    </label>
 
-  <label>
-    TOKEN:
-    <br />
-    <input name="token" bind:value={token} type="password" required />
-  </label>
-  <input type="submit" value="Login" />
+    <label>
+      TOKEN:
+      <br />
+      <input name="token" bind:value={token} type="password" required />
+    </label>
+    <input type="submit" value="Login" />
 
-</form>
+  </form>
 
-<hr />
+  <hr />
 
-<details>
-  <summary>How to get TOKEN:</summary>
-  In Kimai system:
+  <h3>How to get TOKEN:</h3>
+  <p>In Kimai system:</p>
   <ul>
     <li>Click to User menu</li>
     <li>Click `Edit` item</li>
@@ -60,5 +61,5 @@
     <li>Enter `API password` and `Repeat API password`</li>
     <li>Click `Save` button</li>
   </ul>
-  <h4>Entered `API password` will be TOKEN in this system</h4>
-</details>
+  <p>Entered `API password` will be TOKEN in this system</p>
+{/if}

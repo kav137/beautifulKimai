@@ -22,6 +22,8 @@
   }
 
   onMount(async () => {
+    const todayDayObj = new Date();
+    const todayString = todayDayObj.toISOString().split("T")[0];
     reports.subscribe(reports => {
       if (!reports) {
         return;
@@ -39,8 +41,10 @@
           return reportDay === day;
         });
 
+        const afterTitle = day === todayString ? " (Today)" : "";
+
         return {
-          title: day,
+          title: day + afterTitle,
           reports: listOfReports
         };
       });
@@ -53,7 +57,7 @@
 <style>
   .list {
     width: 50%;
-    padding: 10px 0 10px 10px;
+    padding: 0 0 10px 10px;
     box-sizing: border-box;
   }
 
@@ -69,16 +73,18 @@
     border-left: 1px solid rgba(0, 0, 0, 0.1);
   }
   .day-block {
-    border: 1px solid #aaa;
     border-radius: 10px 0 0 10px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     border-right: none;
-    margin: 10px 0;
+    margin: 14px 0;
     box-sizing: border-box;
     padding: 20px;
   }
   .day-title {
     margin: 0;
+  }
+  span {
+    color: #999;
   }
 </style>
 
@@ -86,9 +92,10 @@
   <h2>Reports</h2>
   {#each daysBlock as dayBlock, i}
     <div class="day-block">
-      <h3 class="day-title">
-        Day: {dayBlock.title} | Time: {getDuration(dayBlock.reports)}
-      </h3>
+      <p class="day-title">
+        <b>{dayBlock.title}</b>
+        <span>• {getDuration(dayBlock.reports)}</span>
+      </p>
       {#each dayBlock.reports as report, i}
         <PreviewReport
           {report}
@@ -100,7 +107,7 @@
 </div>
 
 <div class="report-editor">
-  <h2>Report editor</h2>
+  <h2>Editor</h2>
 
   {#if selectedReport !== null}
     <ReportEditor report={selectedReport} />

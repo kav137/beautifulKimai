@@ -49,9 +49,8 @@
       reportInEditMode.description = report.description;
       reportInEditMode.date = converter.date.toView(report.begin);
 
-      const viewTime = converter.duration.toView(report.duration);
-      reportInEditMode.hours = viewTime.split(":")[0];
-      reportInEditMode.minutes = viewTime.split(":")[1];
+      reportInEditMode.hours = converter.duration.getHours(report.duration);
+      reportInEditMode.minutes = converter.duration.getMinutes(report.duration);
 
       reportInEditMode.projectId = report.project.id;
       reportInEditMode.activityId = report.activity.id;
@@ -84,8 +83,6 @@
 
 <div>
   <form>
-    <button on:click={saveAsToday}>Save for today</button>
-
     <label>
       <span>Description:</span>
       <br />
@@ -143,5 +140,8 @@
         {/each}
       </select>
     </label>
+    <hr />
+    <button on:click={saveAsToday}>Save for today</button>
+
   </form>
 </div>

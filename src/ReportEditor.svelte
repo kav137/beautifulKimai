@@ -2,13 +2,12 @@
   import converter from "./converters";
 
   import reports from "./store/reportsStore.js";
+  import activities from "./store/activitiesStore.js";
+  import projects from "./store/projectsStore.js";
+  import customers from "./store/customersStore.js";
+
   export let report;
   import { beforeUpdate, afterUpdate, onMount } from "svelte";
-  let staticData = null;
-
-  onMount(async () => {
-    staticData = await reports.getStaticDate();
-  });
   const covertReportToSend = viewObject => {
     const startDateStr = converter.date.toSrc(viewObject.date);
     const startDate = new Date(startDateStr);
@@ -87,37 +86,35 @@
       <input bind:value={viewReportData.duration} type="text" name="duration" />
     </label>
 
-    {#if staticData !== null}
-      <label>
-        <span>Customer:</span>
-        <select bind:value={viewReportData.customerId}>
-          {#each staticData.customers as customer}
-            <option value={customer.id}>{customer.name}</option>
-          {/each}
-        </select>
-      </label>
+    <label>
+      <span>Customer:</span>
+      <select bind:value={viewReportData.customerId}>
+        {#each $customers as customer}
+          <option value={customer.id}>{customer.name}</option>
+        {/each}
+      </select>
+    </label>
 
-      <label>
-        <span>Project:</span>
-        <select bind:value={viewReportData.projectId}>
-          {#each staticData.projects as project}
-            {#if project.customer === viewReportData.customerId}
-              <option value={project.id}>{project.name}</option>
-            {/if}
-          {/each}
-        </select>
-      </label>
+    <label>
+      <span>Project:</span>
+      <select bind:value={viewReportData.projectId}>
+        {#each $projects as project}
+          {#if project.customer === viewReportData.customerId}
+            <option value={project.id}>{project.name}</option>
+          {/if}
+        {/each}
+      </select>
+    </label>
 
-      <label>
-        <span>Activities:</span>
-        <select bind:value={viewReportData.activityId}>
-          {#each staticData.activities as activity}
-            {#if !activity.project || activity.project === viewReportData.projectId}
-              <option value={activity.id}>{activity.name}</option>
-            {/if}
-          {/each}
-        </select>
-      </label>
-    {/if}
+    <label>
+      <span>Activity:</span>
+      <select bind:value={viewReportData.activityId}>
+        {#each $activities as activity}
+          {#if !activity.project || activity.project === viewReportData.projectId}
+            <option value={activity.id}>{activity.name}</option>
+          {/if}
+        {/each}
+      </select>
+    </label>
   </form>
 </div>

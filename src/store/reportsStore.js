@@ -2,20 +2,6 @@ import { writable } from "svelte/store";
 import credentials from "./credentialsStore";
 import kimaiApi from "../kimaiApi";
 
-let staticData = null;
-const initStaticData = async (url, headers) => {
-  const staticRequests = {
-    projects: kimaiApi.getProjects(url, headers),
-    customers: kimaiApi.getCustomers(url, headers),
-    activities: kimaiApi.getActivities(url, headers)
-  };
-  return {
-    projects: await staticRequests.projects,
-    customers: await staticRequests.customers,
-    activities: await staticRequests.activities
-  };
-};
-
 function createReportsStore() {
   const { subscribe, set, update } = writable([]);
   let urlAPI = "";
@@ -31,10 +17,6 @@ function createReportsStore() {
 
   return {
     subscribe,
-    getStaticDate: async function() {
-      staticData = staticData || (await initStaticData(urlAPI, headers));
-      return staticData;
-    },
     saveNewReport: async function(reportObject) {
       const result = await kimaiApi.createReport(urlAPI, headers, reportObject);
       console.log("result of saving", result);

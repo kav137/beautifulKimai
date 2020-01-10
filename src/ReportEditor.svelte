@@ -38,7 +38,6 @@
     });
     const reportForSend = covertReportToSend(todayObj);
     await reports.saveNewReport(reportForSend);
-    await reports.updateReportList();
   };
 
   beforeUpdate(() => {

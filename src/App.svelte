@@ -21,7 +21,7 @@
   {#if $credentials === null}
     <Login />
   {:else}
-    <button class="logout" on:click={logout}>Logout</button>
+    <button class="logout button-cancel" on:click={logout}>Logout</button>
     <Reports />
   {/if}
 </main>

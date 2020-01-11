@@ -42,6 +42,11 @@
     await reports.saveNewReport(reportForSend);
   };
 
+  let deleteReport = async e => {
+    e.preventDefault();
+    await reports.deleteReport(reportInEditMode.id);
+  };
+
   beforeUpdate(() => {
     if (report.id !== reportInEditMode.id) {
       reportInEditMode.id = report.id;
@@ -146,7 +151,7 @@
       Save current report
     </button>
 
-    <button on:click={saveAsToday} class="button-cancel">Delete</button>
+    <button on:click={deleteReport} class="button-cancel">Delete</button>
 
   </form>
 </div>

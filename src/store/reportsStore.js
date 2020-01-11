@@ -23,6 +23,15 @@ function createReportsStore() {
       return this.getReportList();
     },
 
+    deleteReport: async function(id) {
+      if (!id) {
+        return;
+      }
+      const result = await kimaiApi.deleteReport(urlAPI, headers, id);
+      console.log("result of delete" + id, result);
+      return this.getReportList();
+    },
+
     getReportList: async function() {
       window.reports = await kimaiApi.getAllReports(urlAPI, headers);
 

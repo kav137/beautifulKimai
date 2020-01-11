@@ -18,6 +18,9 @@ const kimaiApi = {
   getActivities: function(urlAPI, headers) {
     return this.getRequest(urlAPI, headers, "activities");
   },
+  getAllReports: function(urlAPI, headers, reportObject) {
+    return this.getRequest(urlAPI, headers, "timesheets?full=true");
+  },
   createReport: async function(urlAPI, headers, reportObject) {
     const fullPath = urlAPI + "timesheets";
     const reuqestOptions = {

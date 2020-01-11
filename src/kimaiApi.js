@@ -50,6 +50,20 @@ const kimaiApi = {
     const resultJson = await result.json();
     return resultJson;
   },
+  saveReport: async function(urlAPI, headers, id, reportObject) {
+    const fullPath = urlAPI + "timesheets/" + id;
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        ...headers,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(reportObject)
+    };
+    const result = await fetch(fullPath, requestOptions);
+    const resultJson = await result.json();
+    return resultJson;
+  },
   checkLogin: async function(login = "", token = "", urlAPI = "") {
     const fullPath = urlAPI + "ping";
     const requestOptions = {

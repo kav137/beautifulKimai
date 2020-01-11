@@ -17,9 +17,22 @@ function createReportsStore() {
 
   return {
     subscribe,
+    saveReport: async function(id, reportObject) {
+      if (!id) {
+        return;
+      }
+      const result = await kimaiApi.saveReport(
+        urlAPI,
+        headers,
+        id,
+        reportObject
+      );
+      console.log("result of updating", result);
+      return this.getReportList();
+    },
     saveNewReport: async function(reportObject) {
       const result = await kimaiApi.createReport(urlAPI, headers, reportObject);
-      console.log("result of saving", result);
+      console.log("result of saving new", result);
       return this.getReportList();
     },
 

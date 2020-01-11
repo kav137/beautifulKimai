@@ -41,7 +41,12 @@ const kimaiApi = {
       }
     };
     const result = await fetch(fullPath, reuqestOptions);
-    return result.status === 200;
+    try {
+      const jsonResult = await result.json();
+      return jsonResult && jsonResult.message === "pong";
+    } catch (e) {
+      return false;
+    }
   }
 };
 

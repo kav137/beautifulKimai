@@ -20,16 +20,11 @@ function createReportsStore() {
     saveNewReport: async function(reportObject) {
       const result = await kimaiApi.createReport(urlAPI, headers, reportObject);
       console.log("result of saving", result);
-
       return this.getReportList();
     },
 
     getReportList: async function() {
-      window.reports = await kimaiApi.getRequest(
-        urlAPI,
-        headers,
-        "timesheets?full=true"
-      );
+      window.reports = await kimaiApi.getAllReports(urlAPI, headers);
 
       update(() => {
         return window.reports;

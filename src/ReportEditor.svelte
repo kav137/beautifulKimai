@@ -79,20 +79,6 @@
   select {
     width: 70%;
   }
-
-  button {
-    text-transform: uppercase;
-    background: #4caf50;
-    border: 0;
-    color: #ffffff;
-    transition: all 0.3 ease;
-  }
-
-  button:hover,
-  button:active,
-  button:focus {
-    background: #43a047;
-  }
 </style>
 
 <div>
@@ -155,7 +141,12 @@
       </select>
     </label>
     <hr />
-    <button on:click={saveAsToday}>Save for today</button>
+    <button on:click={saveAsToday} class="button-color">Save for today</button>
+    <button on:click={saveAsToday} class="button-color">
+      Save current report
+    </button>
+
+    <button on:click={saveAsToday} class="button-cancel">Delete</button>
 
   </form>
 </div>

@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import kimaiApi from "./kimaiApi";
   let APIinformationImage = "./loginInformation.png";
-  let showInfoPage = true;
+  let showInfoPage = false;
 
   let defaultKimaiApi = window.kimaiStaticData && window.kimaiStaticData.url;
   let login = "";
@@ -60,7 +60,6 @@
   }
 
   input {
-    outline: 0;
     background: #f2f2f2;
     width: 300px;
     border: 0;
@@ -76,7 +75,6 @@
   }
   button {
     text-transform: uppercase;
-    outline: 0;
     background: #4caf50;
     width: 100%;
     max-width: 300px;
@@ -84,10 +82,7 @@
     padding: 15px;
     margin: 0;
     color: #ffffff;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
-    cursor: pointer;
   }
 
   button:hover,
@@ -96,7 +91,7 @@
     background: #43a047;
   }
 
-  .get-info {
+  .get-info-link {
     margin: 15px 0 0;
     color: #b3b3b3;
     font-size: 12px;
@@ -104,6 +99,7 @@
     text-decoration: none;
     cursor: pointer;
   }
+
   .how-get-api {
     text-align: left;
   }
@@ -128,6 +124,7 @@
 
       <label>
         <input
+          autofocus
           name="login"
           placeholder="login"
           bind:value={login}
@@ -144,7 +141,7 @@
           required />
       </label>
       <button type="submit">Login</button>
-      <p class="get-info" on:click={switchInfo}>
+      <p class="get-info-link" on:click={switchInfo}>
         How to generate API password?
       </p>
 

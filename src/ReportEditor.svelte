@@ -79,6 +79,20 @@
   select {
     width: 70%;
   }
+
+  button {
+    text-transform: uppercase;
+    background: #4caf50;
+    border: 0;
+    color: #ffffff;
+    transition: all 0.3 ease;
+  }
+
+  button:hover,
+  button:active,
+  button:focus {
+    background: #43a047;
+  }
 </style>
 
 <div>

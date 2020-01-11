@@ -56,7 +56,6 @@ input[type="range"] {
 button {
   color: #333;
   border-color: #858585;
-  outline: none;
   padding: 9px 17px;
   cursor: pointer;
 }

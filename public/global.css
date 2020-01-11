@@ -71,3 +71,26 @@ button:not(:disabled):active {
 button:focus {
   border-color: #666;
 }
+
+.button-color {
+  text-transform: uppercase;
+  background: #4caf50;
+  border: 0;
+  color: #ffffff;
+  font-weight: 500;
+  transition: all 0.3 ease;
+}
+
+.button-color:hover,
+.button-color:active,
+.button-color:focus {
+  background: #43a047;
+}
+
+.button-cancel {
+  background-color: transparent;
+  border: none;
+  color: tomato;
+  font-weight: 500;
+  text-transform: uppercase;
+}

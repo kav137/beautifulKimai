@@ -42,6 +42,12 @@
     await reports.saveNewReport(reportForSend);
   };
 
+  let saveAsNew = async e => {
+    e.preventDefault();
+    const reportForSend = convertReportToSendFormat(reportInEditMode);
+    await reports.saveNewReport(reportForSend);
+  };
+
   let saveThisReport = async e => {
     e.preventDefault();
     const reportForSend = convertReportToSendFormat(reportInEditMode);
@@ -156,6 +162,8 @@
     <button on:click={saveThisReport} class="button-color">
       Save current report
     </button>
+
+    <button on:click={saveAsNew} class="button-color">Create new report</button>
 
     <button on:click={deleteReport} class="button-cancel">Delete</button>
   </form>

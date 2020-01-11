@@ -158,13 +158,10 @@
       </select>
     </label>
     <hr />
+
+    <button on:click={saveThisReport} class="button-color">Update</button>
+    <button on:click={saveAsNew} class="button-color">New</button>
     <button on:click={saveAsToday} class="button-color">Save for today</button>
-    <button on:click={saveThisReport} class="button-color">
-      Save current report
-    </button>
-
-    <button on:click={saveAsNew} class="button-color">Create new report</button>
-
     <button on:click={deleteReport} class="button-cancel">Delete</button>
   </form>
 </div>

@@ -33,6 +33,10 @@ function createCredentialsStore() {
         localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || "{}"
       );
       return this.checkCredentials(login, token, urlAPI);
+    },
+    logout: function() {
+      localStorage.clear();
+      location.reload();
     }
   };
 }

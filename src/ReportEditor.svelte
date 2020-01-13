@@ -107,11 +107,6 @@
     </label>
 
     <label>
-      <span>Date:</span>
-      <input bind:value={reportInEditMode.date} type="date" name="date" />
-    </label>
-
-    <label>
       <span>Time:</span>
       <input
         class="time"
@@ -126,7 +121,12 @@
         name="duration" />
       <i>m</i>
     </label>
+    <hr />
 
+    <label>
+      <span>Date:</span>
+      <input bind:value={reportInEditMode.date} type="date" name="date" />
+    </label>
     <label>
       <span>Customer:</span>
       <select bind:value={reportInEditMode.customerId}>

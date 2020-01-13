@@ -108,6 +108,7 @@
 
     <label>
       <span>Time:</span>
+      <br />
       <input
         class="time"
         bind:value={reportInEditMode.hours}
@@ -121,14 +122,14 @@
         name="duration" />
       <i>m</i>
     </label>
-    <hr />
-
     <label>
       <span>Date:</span>
+      <br />
       <input bind:value={reportInEditMode.date} type="date" name="date" />
     </label>
     <label>
       <span>Customer:</span>
+      <br />
       <select bind:value={reportInEditMode.customerId}>
         {#each $customers as customer}
           <option value={customer.id}>{customer.name}</option>
@@ -138,6 +139,7 @@
 
     <label>
       <span>Project:</span>
+      <br />
       <select bind:value={reportInEditMode.projectId}>
         {#each $projects as project}
           {#if project.customer === reportInEditMode.customerId}
@@ -149,6 +151,7 @@
 
     <label>
       <span>Activity:</span>
+      <br />
       <select bind:value={reportInEditMode.activityId}>
         {#each $activities as activity}
           {#if !activity.project || activity.project === reportInEditMode.projectId}
